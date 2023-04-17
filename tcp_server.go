@@ -37,7 +37,7 @@ func main() {
 						return // fra for løkke
 					}
 					switch msg := string(buf[:n]); msg {
-  				        case "ping":
+					case "ping":
 						_, err = c.Write([]byte("pong"))
 					default:
 						_, err = c.Write(buf[:n])
