@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"os"
 	"sync"
 
 	"github.com/SiMENhol/is105sem03/mycrypt"
@@ -42,7 +43,12 @@ func main() {
 					// Dekrypterer meldingen
 					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
 					log.Println("Dekryptert melding: ", string(dekryptertMelding))
-					log.Println("Krypter melding: ", string(buf[:n]))
+					log.Println("Kryptert melding: ", string(buf[:n]))
+					//Krypter melding
+					kryptertMelding := mycrypt.Krypter([]rune(os.Args[1]), mycrypt.ALF_SEM03, 4)
+					log.Println("Kryptert melding: ", string(kryptertMelding))
+					_, err = conn.Write([]byte(string(kryptertMelding)))
+					log.Println("os.Args[1] = ", os.Args[1])
 
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
