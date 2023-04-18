@@ -42,23 +42,11 @@ func main() {
 					// Dekrypterer meldingen
 					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
 					log.Println("Dekryptert melding: ", string(dekryptertMelding))
+					log.Println("Krypter melding: ", string(buf[:n]))
 
-					// Sjekk om dekrypteringen var vellykket
-					if err != nil {
-						log.Println("Dekryptering feilet: ", err)
-						return // fra for-løkke
-					}
-
-					// Behandle den dekrypterte meldingen
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
 						_, err = c.Write([]byte("pong"))
-						if err != nil {
-							log.Println(err)
-							return // fra for-løkke
-						}
-					default:
-						_, err = c.Write([]byte("Ukjent melding"))
 						if err != nil {
 							log.Println(err)
 							return // fra for-løkke
