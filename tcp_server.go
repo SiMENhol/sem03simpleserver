@@ -40,19 +40,19 @@ func main() {
 					}
 
 					// Dekrypterer meldingen
-					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
 					log.Println("Dekryptert melding: ", string(dekryptertMelding))
 
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
-						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
 						_, err = c.Write([]byte(string(kryptertSvar)))
 						if err != nil {
 							log.Println(err)
 							return // fra for-løkke
 						}
 					case "Kjevik":
-						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
+						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
 						_, err = c.Write([]byte(string(kryptertSvar)))
 						if err != nil {
 							log.Println(err)
