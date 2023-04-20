@@ -41,7 +41,9 @@ func main() {
 
 					// Dekrypterer meldingen
 					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-					log.Println("Dekryptert melding: ", string(dekryptertMelding))
+					//log.Println("Dekryptert melding: ", string(dekryptertMelding))
+					log.Println("Dekryptert melding: ", string(dekryptertMelding[len(mycrypt.ALF_SEM03)-4:]))
+					log.Println("Kryptert melding: ", string(buf[:n]))
 
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
@@ -66,4 +68,3 @@ func main() {
 
 	wg.Wait()
 }
-
