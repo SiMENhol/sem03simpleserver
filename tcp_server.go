@@ -49,8 +49,9 @@ func main() {
 
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
-						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
-						_, err = c.Write([]byte(string(kryptertSvar)))
+						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4)
+						//kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
+						_, err = c.Write([]byte(string(kryptertMelding)))
 						if err != nil {
 							log.Println(err)
 							return // fra for-løkke
