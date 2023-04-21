@@ -64,9 +64,6 @@ func main() {
 					default:
 						if strings.HasPrefix(msgString, "Kjevik") {
 							newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
-							kryptertMelding := mycrypt.Krypter([]rune(""), mycrypt.ALF_SEM03, 4)
-							log.Println("Kryptert melding: ", string(kryptertMelding))
-							_, err = c.Write([]byte(string(kryptertMelding)))
 							if err != nil {
 								log.Fatal(err)
 							}
