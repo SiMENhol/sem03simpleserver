@@ -67,6 +67,8 @@ func main() {
 							if err != nil {
 								log.Fatal(err)
 							}
+							kryptertMelding := mycrypt.Krypter([]rune(string(newString)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+							_, err = conn.Write([]byte(string(kryptertMelding)))
 							_, err = conn.Write([]byte(string(newString)))
 						} else {
 							_, err = c.Write(buf[:n])
