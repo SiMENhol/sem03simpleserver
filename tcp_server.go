@@ -50,28 +50,30 @@ func main() {
 						return
 					}
 
-					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-					log.Println("Dekrypter melding: ", string(dekryptertMelding))
+					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4) //Dekryptere meldingen
+					log.Println("Dekrypter melding: ", string(dekryptertMelding))                                              //Printer den dekrypte meldingen
 
-					msgString := string(dekryptertMelding)
+					msgString := string(dekryptertMelding) //Meldingen konverteres til string og lagres i msgString
 
 					switch msgString {
 					case "ping":
-						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4)
-						log.Println("Kryptert melding: ", string(kryptertMelding))
-						_, err = c.Write([]byte(string(kryptertMelding)))
+						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4) //Dette krypterer til pong
+						log.Println("Kryptert melding: ", string(kryptertMelding))               //Printer den krypterte meldingen
+						_, err = c.Write([]byte(string(kryptertMelding)))                        //Den krypterte meldingen blir sendt tilbake til klienten
 
 					default:
-						if strings.HasPrefix(msgString, "Kjevik") {
-							newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
+						if strings.HasPrefix(msgString, "Kjevik") { //Hvis input begynner med Kjevik
+							newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6") //Dette sender til yr.CelsiusToFahrenheitLine() for å få en streng som viser en temperaturkonvertering fra Celsius til Fahrenheit
 							if err != nil {
 								log.Fatal(err)
 							}
 
-							kryptertMelding := mycrypt.Krypter([]rune(newString), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-							_, err = conn.Write([]byte(string(kryptertMelding)))
+							kryptertMelding := mycrypt.Krypter([]rune(newString), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4) // Dette krypterer newString
+							_, err = conn.Write([]byte(string(kryptertMelding)))                                               //Den krypterte meldingen sendes tilbake til klient
 						} else {
-							_, err = c.Write(buf[:n])
+							kryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4) // Dette krypterer meldingen
+							_, err = c.Write([]byte(string(kryptertMelding)))                                                        //Hvis ikke ping eller Kjevik sendes input tilbake som kryptert
+
 						}
 					}
 
