@@ -1,16 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net"
-	"strconv"
-	"strings"
 	"sync"
 
 	"github.com/SiMENhol/is105sem03/mycrypt"
-	"github.com/simenhol/funtemps2/conv"
 	"github.com/simenhol/minyr/yr"
 )
 
@@ -63,31 +59,13 @@ func main() {
 						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4)
 						log.Println("Kryptert melding: ", string(kryptertMelding))
 						_, err = c.Write([]byte(string(kryptertMelding)))
-					case "kKjevik":
-						parts := strings.Split(msgString, " ")
-						celsius, _ := strconv.ParseFloat(parts[1], 64)
-						fahrenheit := conv.CelsiusToFahrenheit(celsius)
-						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-						log.Println("Kryptert melding: ", string(kryptertMelding))
-						_, err = c.Write([]byte(string(kryptertMelding)))
 
-					case "Kjevik;SN39040;18.03.2022 01:50;6":
+					case "Kjevik":
 						newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
-						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-						log.Println("Kryptert melding: ", string(kryptertMelding))
 						if err != nil {
 							log.Fatal(err)
 						}
 						_, err = conn.Write([]byte(string(newString)))
-
-					case "Kjevik":
-						fahrenheit, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
-						if err != nil {
-							log.Fatal(err)
-						}
-						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
-						log.Println("Kryptert melding: ", string(kryptertMelding))
-						_, err = c.Write([]byte(string(kryptertMelding)))
 					default:
 						_, err = c.Write(buf[:n])
 					}
