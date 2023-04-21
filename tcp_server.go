@@ -63,7 +63,7 @@ func main() {
 						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4)
 						log.Println("Kryptert melding: ", string(kryptertMelding))
 						_, err = c.Write([]byte(string(kryptertMelding)))
-					case "KKjevik":
+					case "kKjevik":
 						parts := strings.Split(msgString, " ")
 						celsius, _ := strconv.ParseFloat(parts[1], 64)
 						fahrenheit := conv.CelsiusToFahrenheit(celsius)
@@ -73,15 +73,21 @@ func main() {
 
 					case "Kjevik;SN39040;18.03.2022 01:50;6":
 						newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
+						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+						log.Println("Kryptert melding: ", string(kryptertMelding))
 						if err != nil {
 							log.Fatal(err)
 						}
-						//dividedString := strings.Split("Kjevik;SN39040;18.03.2022 01:50;6", ";")
-
-						//if fahr, err := strconv.ParseFloat(dividedString[3], 64); err == nil {
-						//log.Println(conv.CelsiusToFarhenheit(fahr)) }
-						//joinedString := strings.Join(dividedString, ";")
 						_, err = conn.Write([]byte(string(newString)))
+
+					case "Kjevik":
+						fahrenheit, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
+						if err != nil {
+							log.Fatal(err)
+						}
+						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+						log.Println("Kryptert melding: ", string(kryptertMelding))
+						_, err = c.Write([]byte(string(kryptertMelding)))
 					default:
 						_, err = c.Write(buf[:n])
 					}
