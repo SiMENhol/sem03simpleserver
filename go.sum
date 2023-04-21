@@ -2,3 +2,5 @@ github.com/SiMENhol/is105sem03 v0.0.0-20230417134201-bd7839b36821 h1:SeUzcV/ZkQn
 github.com/SiMENhol/is105sem03 v0.0.0-20230417134201-bd7839b36821/go.mod h1:fGb8PgWmIw3dnm6Q/hLZJxjTJnQIFaYw37JWf+m7DmE=
 github.com/simenhol/funtemps2 v0.0.0-20230413084731-270e1e156ee7 h1:gw0UhwQ1Cf/VZJNCyGnmu1jKMs8Ey/SLRxJorCWN/ts=
 github.com/simenhol/funtemps2 v0.0.0-20230413084731-270e1e156ee7/go.mod h1:CrVevtF/Uo9zGTLvfO0J9ioPmPMzd2Dh/1pDOSDHAAo=
+github.com/simenhol/minyr v0.0.0-20230414101945-ecb3fc90effc h1:zKnkq7lxQ+Cv6C5oZQ9bC/nlKL/kJir+LGi/efVQSbE=
+github.com/simenhol/minyr v0.0.0-20230414101945-ecb3fc90effc/go.mod h1:Itm1F3nkWqfG0HG0LAAV1jkj0K050Khb+vWVLhYqSo8=
