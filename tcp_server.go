@@ -67,7 +67,7 @@ func main() {
 							if err != nil {
 								log.Fatal(err)
 							}
-							kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4)
+							kryptertMelding := mycrypt.Krypter([]rune(""), mycrypt.ALF_SEM03, 4)
 							log.Println("Kryptert melding: ", string(kryptertMelding))
 							_, err = c.Write([]byte(string(kryptertMelding)))
 							_, err = conn.Write([]byte(string(newString)))
