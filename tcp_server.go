@@ -57,9 +57,9 @@ func main() {
 
 					switch msgString {
 					case "ping":
-						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, 4) //Dette krypterer til pong
-						log.Println("Kryptert melding: ", string(kryptertMelding))               //Printer den krypterte meldingen
-						_, err = c.Write([]byte(string(kryptertMelding)))                        //Den krypterte meldingen blir sendt tilbake til klienten
+						kryptertMelding := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, -4) //Dette krypterer til pong
+						log.Println("Kryptert melding: ", string(kryptertMelding))                //Printer den krypterte meldingen
+						_, err = c.Write([]byte(string(kryptertMelding)))                         //Den krypterte meldingen blir sendt tilbake til klienten
 
 					default:
 						if strings.HasPrefix(msgString, "Kjevik") { //Hvis input begynner med Kjevik
