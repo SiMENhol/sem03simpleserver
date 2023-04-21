@@ -1,9 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net"
+	"strconv"
+	"strings"
 	"sync"
 
 	"github.com/SiMENhol/is105sem03/mycrypt"
@@ -53,18 +56,24 @@ func main() {
 							return // fra for-løkke
 						}
 					}
-					switch msg := string(dekryptertMelding); msg {
+					switch msgString := string(dekryptertMelding); msgString {
 					case "Kjevik":
-						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
-						_, err = c.Write([]byte(string(kryptertSvar)))
-						if err != nil {
-							log.Println(err)
-							return // fra for-løkke
-							log.Println(conv.CelsiusToFahrenheit(2), 2)
-						}
+						parts := strings.Split(msgString, " ")
+						celsius, _ := strconv.ParseFloat(parts[1], 64)
+						fahrenheit := conv.CelsiusToFahrenheit(celsius)
+						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+						log.Println("Kryptert melding: ", string(kryptertMelding))
+						_, err = c.Write([]byte(string(kryptertMelding)))
+					default:
+						_, err = c.Write(buf[:n])
+						//kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
+						//_, err = c.Write([]byte(string(kryptertSvar)))
+						//if err != nil {
+						//	log.Println(err)
+						//	return // fra for-løkke
 					}
-
 				}
+
 			}(conn)
 		}
 	}()
