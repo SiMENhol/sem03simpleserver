@@ -4,6 +4,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"strings"
 	"sync"
 
 	"github.com/SiMENhol/is105sem03/mycrypt"
@@ -60,14 +61,16 @@ func main() {
 						log.Println("Kryptert melding: ", string(kryptertMelding))
 						_, err = c.Write([]byte(string(kryptertMelding)))
 
-					case "Kjevik":
-						newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
-						if err != nil {
-							log.Fatal(err)
-						}
-						_, err = conn.Write([]byte(string(newString)))
 					default:
-						_, err = c.Write(buf[:n])
+						if strings.HasPrefix(msgString, "Kjevik") {
+							newString, err := yr.CelsiusToFahrenheitLine("Kjevik")
+							if err != nil {
+								log.Fatal(err)
+							}
+							_, err = conn.Write([]byte(string(newString)))
+						} else {
+							_, err = c.Write(buf[:n])
+						}
 					}
 
 					if err != nil {
