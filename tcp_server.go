@@ -6,8 +6,8 @@ import (
 	"net"
 	"sync"
 
-	"github.com/SiMENhol/funtemps2/conv"
 	"github.com/SiMENhol/is105sem03/mycrypt"
+	"github.com/simenhol/funtemps2/conv"
 )
 
 func main() {
@@ -60,7 +60,7 @@ func main() {
 						if err != nil {
 							log.Println(err)
 							return // fra for-løkke
-							log.Println(conv.CelsiusToFahrenheits)
+							log.Println(conv.CelsiusToFahrenheit(2), 2)
 						}
 					}
 
