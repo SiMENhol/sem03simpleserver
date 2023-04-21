@@ -56,13 +56,12 @@ func main() {
 							log.Println(err)
 							return // fra for-løkke
 						}
-					}
-					switch msgString := string(dekryptertMelding); msgString {
+
 					case "Kjevik":
-						parts := strings.Split(msgString, " ")
+						parts := strings.Split(msg, " ")
 						celsius, _ := strconv.ParseFloat(parts[1], 64)
 						fahrenheit := conv.CelsiusToFahrenheit(celsius)
-						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, 4)
+						kryptertMelding := mycrypt.Krypter([]rune(fmt.Sprintf("Temperaturen i Fahrenheit er %.2f", fahrenheit)), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
 						log.Println("Kryptert melding: ", string(kryptertMelding))
 						_, err = c.Write([]byte(string(kryptertMelding)))
 					default:
