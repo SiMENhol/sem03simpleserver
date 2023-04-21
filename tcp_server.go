@@ -6,6 +6,7 @@ import (
 	"net"
 	"sync"
 
+	"github.com/SiMENhol/funtemps2/conv"
 	"github.com/SiMENhol/is105sem03/mycrypt"
 )
 
@@ -43,7 +44,6 @@ func main() {
 					dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
 					log.Println("Dekryptert melding: ", string(dekryptertMelding))
 
-					// Behandle den dekrypterte meldingen
 					switch msg := string(dekryptertMelding); msg {
 					case "ping":
 						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
@@ -53,6 +53,17 @@ func main() {
 							return // fra for-løkke
 						}
 					}
+					switch msg := string(dekryptertMelding); msg {
+					case "Kjevik":
+						kryptertSvar := mycrypt.Krypter([]rune("pong"), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)+4)
+						_, err = c.Write([]byte(string(kryptertSvar)))
+						if err != nil {
+							log.Println(err)
+							return // fra for-løkke
+							log.Println(conv.CelsiusToFahrenheits)
+						}
+					}
+
 				}
 			}(conn)
 		}
