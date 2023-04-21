@@ -63,7 +63,7 @@ func main() {
 
 					default:
 						if strings.HasPrefix(msgString, "Kjevik") {
-							newString, err := yr.CelsiusToFahrenheitLine("Kjevik")
+							newString, err := yr.CelsiusToFahrenheitLine("Kjevik;SN39040;18.03.2022 01:50;6")
 							if err != nil {
 								log.Fatal(err)
 							}
